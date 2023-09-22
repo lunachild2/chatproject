@@ -1,10 +1,6 @@
 package org.project.controllers.chat;
 
-import lombok.Data;
+import lombok.Builder;
 
-@Data
-public class ChatRoomForm {
-
-    private String roomNm;
-    private int max;
-}
+@Builder
+public record ChatRoomForm(Long roomNo, String roomNm,int max) {}
