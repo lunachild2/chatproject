@@ -11,6 +11,11 @@ window.addEventListener("DOMContentLoaded", function() {
 
     webSocket.onmessage = function(message) {
         console.log("메세지 수신 : ", message);
+        const messages = document.getElementById("messages");
+        const li = document.createElement("li");
+        const text = document.createTextNode(message.data);
+        li.appendChild(text);
+        messages.appendChild(li);
     }
 
     const sendButton = document.getElementById("send");
