@@ -6,6 +6,9 @@ import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+import java.util.ArrayList;
+import java.util.List;
+
 @Entity
 @Data @Builder
 @AllArgsConstructor @NoArgsConstructor
@@ -18,4 +21,7 @@ public class ChatRoom extends BaseEntity {
     private String roomNm;
 
     private int max; // 최대 인원수, 0 이면 무제한
+
+    @OneToMany(mappedBy = "room", fetch = FetchType.LAZY)
+    private List<ChatHistory> histories = new ArrayList<>();
 }
