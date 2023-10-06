@@ -21,4 +21,10 @@ public class ChatRoomInfoService {
 
         return rooms;
     }
+
+    public ChatRoom get(Long roomNo) {
+        ChatRoom room = roomRepository.findById(roomNo).orElseThrow(RoomNotFoundException::new);
+
+        return room;
+    }
 }
