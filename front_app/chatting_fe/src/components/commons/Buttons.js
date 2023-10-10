@@ -7,10 +7,14 @@ export const StyledButton = styled.button`
   border: 0;
   color: #fff;
   margin: 10px;
-  border-radius: 15px;
+  border-radius: 3px;
 
   ${props => props.border && css`
     border: 2px solid blue;
+  `}
+
+  ${props => props.margin && css`
+    margin: ${props.margin};
   `}
 
   &:hover {
