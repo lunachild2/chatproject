@@ -16,6 +16,7 @@ const ChatBox = styled.ul`
     height: calc(100% - 225px);
     background: #ccc;
     padding: 10px;
+    overflow-y: auto;
 `;
 
 const InputGrp = styled.div`
@@ -48,6 +49,8 @@ let webSocket;
 const Room = () => {
     const inputEl = useRef();
     const buttonEl = useRef();
+    const chatBoxEl = useRef();
+
     const initialInfo = {
         roomNo : '',
         roomNm : '',
@@ -106,7 +109,9 @@ const Room = () => {
         webSocket.send(JSON.stringify(chatData));
         inputEl.current.value = "";
         inputEl.current.focus();
-        registerMessage(chatData);
+        registerMessage(chatData); // 채팅 기록 서버 DB에 기록
+        const st = 25 * messages.length + 100;
+        chatBoxEl.current.scrollTo(0, st);
     }, [chatData]);
 
     if(roomInfo && !roomInfo.nickNm) {
@@ -118,7 +123,7 @@ const Room = () => {
     return (
         <>
             {roomInfo && <Title>{roomInfo.roomNm}({roomInfo.max ? `최대${roomInfo.max}명` : '무제한'})</Title>}
-            <ChatBox>{lis}</ChatBox>
+            <ChatBox ref={chatBoxEl}>{lis}</ChatBox>
             <InputGrp>
                 <TextBox type="text" onKeyUp={handleChange} ref={inputEl} placeholder='메세지 입력...' />
                 <button type="button" onClick={handleClick} ref={buttonEl}>
